@@ -1,6 +1,6 @@
 {
-    "name": "tetris_pro",
-    "short_name": "tetris_pro",
+    "name": "tetris",
+    "short_name": "tetris",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

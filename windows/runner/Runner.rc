@@ -90,12 +90,12 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "com.example" "\0"
-            VALUE "FileDescription", "tetris_pro" "\0"
+            VALUE "FileDescription", "tetris" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "tetris_pro" "\0"
+            VALUE "InternalName", "tetris" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2024 com.example. All rights reserved." "\0"
-            VALUE "OriginalFilename", "tetris_pro.exe" "\0"
-            VALUE "ProductName", "tetris_pro" "\0"
+            VALUE "OriginalFilename", "tetris.exe" "\0"
+            VALUE "ProductName", "tetris" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END
