@@ -25,8 +25,8 @@ class MainGame extends FlameGame
   Future<void> onLoad() async {
     super.onLoad();
     await draw();
-    FlameAudio.play('Tetris.mp3')
-
+    FlameAudio.bgm.initialize();
+    FlameAudio.bgm.play('audio/tetris.ogg', volume: 1.0);
     _tetris.setRenderCallback(renderCallback);
     _tetris.setChangeMinoCallback(minoBottomHitCallback);
   }
@@ -37,10 +37,10 @@ class MainGame extends FlameGame
       for (var x = 0; x < row.length; x++) {
         if (row[x] == 1) {
           _wallComponentList
-              .add(createBlock(x + 1, y + 1, getBlockPaint(row[x]+20)));
+              .add(createBlock(x + 1, y + 1, getBlockPaint(row[x])));
         } else if (row[x] > 1) {
           _rectComponentList
-              .add(createBlock(x + 1, y + 1, getBlockPaint(row[x]+20)));
+              .add(createBlock(x + 1, y + 1, getBlockPaint(row[x])));
         }
       }
     }
