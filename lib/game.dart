@@ -73,7 +73,7 @@ class MainGame extends FlameGame
   }
 
   // Hier kommt der Stein am Boden an Call back Wizard23
-  bool minoBottomHitCallback() {
+  minoBottomHitCallback() {
     resetRenderMino();
     renderMino();
 
