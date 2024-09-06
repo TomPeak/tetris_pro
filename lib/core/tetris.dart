@@ -26,7 +26,8 @@ class Tetris {
     }
   }
 
-  void setChangeMinoCallback(Function fn) => changeMinoCallbackHandler = fn;
+  bool setChangeMinoCallback(Function fn) =>
+      changeMinoCallbackHandler = fn(false);
 
   Mino factoryMino(int type, int angle, int x, int y) {
     return Mino(

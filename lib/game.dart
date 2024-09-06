@@ -70,7 +70,8 @@ class MainGame extends FlameGame
     renderMino();
   }
 
-  minoBottomHitCallback() {
+  // Hier kommt der Stein am Boden an Call back Wizard23
+  bool minoBottomHitCallback() {
     resetRenderMino();
     renderMino();
 
@@ -79,6 +80,7 @@ class MainGame extends FlameGame
     for (var nextMino in _nextMinoComponentList) {
       add(nextMino);
     }
+    return true;
   }
 
   createNextMino() {
@@ -181,10 +183,14 @@ class MainGame extends FlameGame
     }
   }
 
+  //TODO Wizard23 Hier die Swipegesture down
   @override
   void onDragUpdate(DragUpdateEvent event) {
     if (event.localDelta.y > 0) {
-      _tetris.keyInput(Direction.down.name);
+      do {
+        _tetris.keyInput(Direction.down.name);
+        // Solange runter bis angekommen.
+      } while (minoBottomHitCallback());
     }
   }
 
