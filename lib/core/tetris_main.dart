@@ -36,7 +36,7 @@ class TetrisMain {
   bool get isGameOver => gameCore.isGameOver;
 
   void setRenderCallback(Function fn) => renderCallbackHandler = fn;
-  bool setChangeMinoCallback(Function fn) => gameCore.setChangeMinoCallback(fn);
+  void setChangeMinoCallback(Function fn) => gameCore.setChangeMinoCallback(fn);
 
   void loop() {
     cycle();

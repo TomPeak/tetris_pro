@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart' show Colors;
 import 'package:tetris/core/tetris_main.dart';
+import 'package:tetris/core/tetris.dart';
 import 'utility/direction.dart';
 import 'utility/config.dart';
 import 'package:flame_audio/flame_audio.dart';
@@ -13,6 +14,7 @@ import 'package:flame_audio/flame_audio.dart';
 class MainGame extends FlameGame
     with KeyboardEvents, HasGameRef, TapCallbacks, DragCallbacks {
   final TetrisMain _tetris = TetrisMain();
+  final Tetris _tetrisCore = Tetris();
 
   final List<RectangleComponent> _wallComponentList = [];
   final List<RectangleComponent> _rectComponentList = [];
@@ -61,7 +63,7 @@ class MainGame extends FlameGame
     add(getRenderText('LEVEL', 260.0, 180.0));
     add(getRenderText('1', 260.0, 220.0));
     add(getRenderText('SCORE', 260.0, 280.0));
-    add(getRenderText('0', 260.0, 320.0));
+    add(getRenderText(_tetrisCore.points.getScore.toString(), 260.0, 320.0));
     // camera.followVector2(Vector2(pushGame.state.width * oneBlockSize / 2, pushGame.state.height * oneBlockSize / 2));
   }
 
@@ -187,10 +189,10 @@ class MainGame extends FlameGame
   @override
   void onDragUpdate(DragUpdateEvent event) {
     if (event.localDelta.y > 0) {
-      do {
-        _tetris.keyInput(Direction.down.name);
-        // Solange runter bis angekommen.
-      } while (minoBottomHitCallback());
+      //do {
+      _tetris.keyInput(Direction.down.name);
+      // Solange runter bis angekommen.
+      //} while (minoBottomHitCallback());
     }
   }
 

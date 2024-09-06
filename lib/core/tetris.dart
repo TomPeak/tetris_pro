@@ -1,10 +1,28 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
+import 'package:tetris/game.dart';
 
 import 'mino.dart';
 import '../utility/config.dart';
 import '../utility/mino_enum.dart';
 import '../utility/deep_copy.dart';
+
+class Score {
+  // Creating a Field/Property
+  int value = 0;
+
+  // Creating the getter method
+  // to get input from Field/Property
+  int get getScore {
+    return value;
+  }
+
+  // Creating the setter method
+  // to set the input in Field/Property
+  set setScore(int point) {
+    value = point;
+  }
+}
 
 class Tetris {
   List<List<int>> field =
@@ -12,6 +30,8 @@ class Tetris {
   late Mino mino;
   late Mino nextMino;
   late Function changeMinoCallbackHandler;
+  late MainGame game;
+  Score points = Score();
 
   Tetris(
       {minoType = 0, minoAngle = 0, minoX = 5, minoY = 0, bool random = true}) {
@@ -26,8 +46,7 @@ class Tetris {
     }
   }
 
-  bool setChangeMinoCallback(Function fn) =>
-      changeMinoCallbackHandler = fn(false);
+  void setChangeMinoCallback(Function fn) => changeMinoCallbackHandler = fn;
 
   Mino factoryMino(int type, int angle, int x, int y) {
     return Mino(
@@ -158,6 +177,7 @@ class Tetris {
       }
 
       if (lineFill) {
+        points.setScore = 10;
         for (int j = i; 0 < j; j--) {
           field[j] = [...field[j - 1]];
         }
