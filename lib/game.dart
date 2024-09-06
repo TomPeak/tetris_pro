@@ -62,6 +62,11 @@ class MainGame extends FlameGame
     add(getRenderText('1', 260.0, 220.0));
     add(getRenderText('SCORE', 260.0, 280.0));
     add(getRenderText('0', 260.0, 320.0));
+    final image = await Sprite.load("button.png");
+    add(SpriteButtonComponent(
+        button: image,
+        onPressed: () => _tetris.keyInput(Direction.down.name),
+        position: Vector2(30, 200)));
     // camera.followVector2(Vector2(pushGame.state.width * oneBlockSize / 2, pushGame.state.height * oneBlockSize / 2));
   }
 
