@@ -25,7 +25,7 @@ class TetrisMain {
       minoY: minoY,
       random: random,
     );
-    gameLoop = Timer.periodic(const Duration(milliseconds: 1000), (timer) {
+    gameLoop = Timer.periodic(const Duration(milliseconds: 500), (timer) {
       loop();
     });
   }

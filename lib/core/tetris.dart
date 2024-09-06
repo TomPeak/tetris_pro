@@ -6,6 +6,7 @@ import 'mino.dart';
 import '../utility/config.dart';
 import '../utility/mino_enum.dart';
 import '../utility/deep_copy.dart';
+import '../game.dart';
 
 class Score {
   // Creating a Field/Property
@@ -177,7 +178,8 @@ class Tetris {
       }
 
       if (lineFill) {
-        points.setScore = 10;
+        game = MainGame();
+        game.scoreText.text = "100";
         for (int j = i; 0 < j; j--) {
           field[j] = [...field[j - 1]];
         }
