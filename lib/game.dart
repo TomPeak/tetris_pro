@@ -17,7 +17,7 @@ class MainGame extends FlameGame
   final List<RectangleComponent> _wallComponentList = [];
   final List<RectangleComponent> _rectComponentList = [];
   final List<RectangleComponent> _nextMinoComponentList = [];
-
+  bool drop = false;
   // @override
   // Color backgroundColor() => const Color.fromRGBO(89, 106, 108, 1.0);
 
@@ -167,7 +167,7 @@ class MainGame extends FlameGame
 
   @override
   void onTapDown(TapDownEvent event) {
-    if (!_tetris.isGameOver) {
+    if (!_tetris.isGameOver && !drop) {
       var mino = _rectComponentList[0];
       if ((mino.position.x > event.devicePosition.x - 60 &&
               mino.position.x < event.devicePosition.x) &&
@@ -189,7 +189,12 @@ class MainGame extends FlameGame
   @override
   void onDragUpdate(DragUpdateEvent event) {
     if (event.localDelta.y > 0) {
-      _tetris.keyInput(Direction.down.name);
+      drop = true;
+      do {
+        _tetris.keyInput(Direction.down.name);
+      } while (_tetris.bottomHitCallbackHandler());
+    } else {
+      drop = false;
     }
   }
 
