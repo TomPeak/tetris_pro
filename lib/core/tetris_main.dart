@@ -63,6 +63,10 @@ class TetrisMain {
     }
   }
 
+  get getIsMinoBottomHit {
+    return gameCore.getIsMinoBottomHit;
+  }
+
   getMinoShape(mino) => minoShapes[mino.type]?[mino.angle];
 
   // get nextMinoShapeArray => nextMinoShape.slices(minoWidth);

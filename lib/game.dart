@@ -11,7 +11,6 @@ import 'utility/direction.dart';
 import 'utility/config.dart';
 import 'package:flame_audio/flame_audio.dart';
 
-
 class MainGame extends FlameGame
     with KeyboardEvents, HasGameRef, TapCallbacks, DragCallbacks {
   final TetrisMain _tetris = TetrisMain();
@@ -19,7 +18,8 @@ class MainGame extends FlameGame
   final List<RectangleComponent> _wallComponentList = [];
   final List<RectangleComponent> _rectComponentList = [];
   final List<RectangleComponent> _nextMinoComponentList = [];
-
+  bool bottom = false;
+  bool drop = false;
   // @override
   // Color backgroundColor() => const Color.fromRGBO(89, 106, 108, 1.0);
   TextBoxComponent scoreText =
@@ -84,7 +84,7 @@ class MainGame extends FlameGame
     for (var nextMino in _nextMinoComponentList) {
       add(nextMino);
     }
-    return true;
+    bottom = true;
   }
 
   createNextMino() {
@@ -168,7 +168,7 @@ class MainGame extends FlameGame
 
   @override
   void onTapDown(TapDownEvent event) {
-    if (!_tetris.isGameOver) {
+    if (!_tetris.isGameOver && !drop) {
       var mino = _rectComponentList[0];
       if ((mino.position.x > event.devicePosition.x - 60 &&
               mino.position.x < event.devicePosition.x) &&
@@ -191,11 +191,13 @@ class MainGame extends FlameGame
   @override
   void onDragUpdate(DragUpdateEvent event) {
     if (event.localDelta.y > 0) {
-      //do {
-      _tetris.keyInput(Direction.down.name);
-      // Solange runter bis angekommen.
-      //} while (minoBottomHitCallback());
+      drop = true;
+      do {
+        _tetris.keyInput(Direction.down.name);
+        // Solange runter bis angekommen.
+      } while (!_tetris.getIsMinoBottomHit);
     }
+    drop = false;
   }
 
   @override

@@ -1,12 +1,10 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
-import 'package:tetris/game.dart';
 
 import 'mino.dart';
 import '../utility/config.dart';
 import '../utility/mino_enum.dart';
 import '../utility/deep_copy.dart';
-import '../game.dart';
 
 class Score {
   // Creating a Field/Property
@@ -31,7 +29,7 @@ class Tetris {
   late Mino mino;
   late Mino nextMino;
   late Function changeMinoCallbackHandler;
-  late MainGame game;
+
   Score points = Score();
 
   Tetris(
@@ -145,6 +143,9 @@ class Tetris {
         break;
     }
   }
+  get getIsMinoBottomHit {
+    return isMinoBottomHit;
+  }
 
   bool cycle() {
     if (isMinoBottomHit) {
@@ -178,8 +179,6 @@ class Tetris {
       }
 
       if (lineFill) {
-        game = MainGame();
-        game.scoreText.text = "100";
         for (int j = i; 0 < j; j--) {
           field[j] = [...field[j - 1]];
         }
