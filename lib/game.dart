@@ -11,6 +11,7 @@ import 'package:tetris/core/tetris.dart';
 import 'utility/direction.dart';
 import 'utility/config.dart';
 import 'package:flame_audio/flame_audio.dart';
+import 'dart:ui';
 
 class MainGame extends FlameGame
     with KeyboardEvents, HasGameRef, TapCallbacks, DragCallbacks {
@@ -107,7 +108,7 @@ class MainGame extends FlameGame
     add(getRenderText('SCORE', 260.0, 280.0));
 
     add(scoreText);
-    
+
     // camera.followVector2(Vector2(pushGame.state.width * oneBlockSize / 2, pushGame.state.height * oneBlockSize / 2));
   }
 
@@ -127,7 +128,16 @@ class MainGame extends FlameGame
       add(nextMino);
     }
     if (_tetris.isGameOver) {
-      add(getRenderText('GAME OVER', 100.0, 280.0));
+      final regular = TextPaint(
+          style: TextStyle(
+          fontSize: 48.0,
+          color: Color(0xFF990000 ),
+      )
+      );
+      add(TextComponent(
+          text: 'GAME OVER',
+          position: Vector2(30, 280),
+          textRenderer: regular));
       FlameAudio.bgm.stop();
     }
   }
