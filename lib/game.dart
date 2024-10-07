@@ -107,6 +107,7 @@ class MainGame extends FlameGame
     add(getRenderText('SCORE', 260.0, 280.0));
 
     add(scoreText);
+    
     // camera.followVector2(Vector2(pushGame.state.width * oneBlockSize / 2, pushGame.state.height * oneBlockSize / 2));
   }
 
@@ -124,6 +125,10 @@ class MainGame extends FlameGame
     createNextMino();
     for (var nextMino in _nextMinoComponentList) {
       add(nextMino);
+    }
+    if (_tetris.isGameOver) {
+      add(getRenderText('GAME OVER', 100.0, 280.0));
+      FlameAudio.bgm.stop();
     }
   }
 

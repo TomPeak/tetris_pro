@@ -104,7 +104,8 @@ class Tetris {
       for (int j = 0; j < minoWidth; j++) {
         if (minoShapes[minoType]![minoAngle]![i * minoWidth + j] > 0 &&
             field[minoY + i][getLimitFieldX(minoX, j)] > 0) {
-          debugPrint('is Hit true');
+          debugPrint('is Hit true' + minoY.toString());
+
           return true;
         }
       }
@@ -143,6 +144,7 @@ class Tetris {
         break;
     }
   }
+
   get getIsMinoBottomHit {
     return isMinoBottomHit;
   }
