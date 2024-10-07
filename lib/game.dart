@@ -40,24 +40,24 @@ class MainGame extends FlameGame
         },
         button: await loadSprite("left.png"),
         buttonDown: await loadSprite("left.png"),
-        position: Vector2(30, 600),
-        size: Vector2(40, 40));
+        position: Vector2(20, 600),
+        size: Vector2(60, 60));
     var rightButton = SpriteButtonComponent(
         onPressed: () {
           _tetris.keyInput(Direction.right.name);
         },
         button: await loadSprite("right.png"),
         buttonDown: await loadSprite("right.png"),
-        position: Vector2(180, 600),
-        size: Vector2(40, 40));
+        position: Vector2(260, 600),
+        size: Vector2(60, 60));
     var rotateButton = SpriteButtonComponent(
         onPressed: () {
           _tetris.keyInput(Direction.rotate.name);
         },
         button: await loadSprite("rotate.png"),
         buttonDown: await loadSprite("rotate.png"),
-        position: Vector2(80, 600),
-        size: Vector2(40, 40));
+        position: Vector2(100, 600),
+        size: Vector2(60, 60));
     var dropButton = SpriteButtonComponent(
         onPressed: () {
           do {
@@ -67,8 +67,8 @@ class MainGame extends FlameGame
         },
         button: await loadSprite("drop.png"),
         buttonDown: await loadSprite("drop.png"),
-        position: Vector2(130, 600),
-        size: Vector2(40, 40));
+        position: Vector2(180, 600),
+        size: Vector2(60, 60));
     add(leftButton);
     add(rightButton);
     add(rotateButton);
