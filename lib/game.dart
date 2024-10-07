@@ -1,4 +1,5 @@
-import 'package:flame/components.dart' hide Timer;
+import 'package:flame/components.dart';
+import 'package:flame/widgets.dart';
 import 'package:flame/events.dart';
 import 'package:flame/game.dart';
 import 'package:flame/input.dart';
@@ -18,12 +19,12 @@ class MainGame extends FlameGame
   final List<RectangleComponent> _wallComponentList = [];
   final List<RectangleComponent> _rectComponentList = [];
   final List<RectangleComponent> _nextMinoComponentList = [];
-  bool bottom = false;
   bool drop = false;
   // @override
   // Color backgroundColor() => const Color.fromRGBO(89, 106, 108, 1.0);
   TextBoxComponent scoreText =
       TextBoxComponent(text: "0", position: Vector2(260.0, 320.0));
+
   @override
   Future<void> onLoad() async {
     super.onLoad();
@@ -32,6 +33,46 @@ class MainGame extends FlameGame
     FlameAudio.bgm.play('audio/tetris.ogg', volume: 1.0);
     _tetris.setRenderCallback(renderCallback);
     _tetris.setChangeMinoCallback(minoBottomHitCallback);
+
+    var leftButton = SpriteButtonComponent(
+        onPressed: () {
+          _tetris.keyInput(Direction.left.name);
+        },
+        button: await loadSprite("left.png"),
+        buttonDown: await loadSprite("left.png"),
+        position: Vector2(30, 600),
+        size: Vector2(40, 40));
+    var rightButton = SpriteButtonComponent(
+        onPressed: () {
+          _tetris.keyInput(Direction.right.name);
+        },
+        button: await loadSprite("right.png"),
+        buttonDown: await loadSprite("right.png"),
+        position: Vector2(180, 600),
+        size: Vector2(40, 40));
+    var rotateButton = SpriteButtonComponent(
+        onPressed: () {
+          _tetris.keyInput(Direction.rotate.name);
+        },
+        button: await loadSprite("rotate.png"),
+        buttonDown: await loadSprite("rotate.png"),
+        position: Vector2(80, 600),
+        size: Vector2(40, 40));
+    var dropButton = SpriteButtonComponent(
+        onPressed: () {
+          do {
+            _tetris.keyInput(Direction.down.name);
+            // Solange runter bis angekommen.
+          } while (!_tetris.getIsMinoBottomHit);
+        },
+        button: await loadSprite("drop.png"),
+        buttonDown: await loadSprite("drop.png"),
+        position: Vector2(130, 600),
+        size: Vector2(40, 40));
+    add(leftButton);
+    add(rightButton);
+    add(rotateButton);
+    add(dropButton);
   }
 
   Future<void> draw() async {
@@ -84,7 +125,6 @@ class MainGame extends FlameGame
     for (var nextMino in _nextMinoComponentList) {
       add(nextMino);
     }
-    bottom = true;
   }
 
   createNextMino() {

@@ -166,6 +166,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_flame_architecture:
+    dependency: "direct main"
+    description:
+      name: flutter_flame_architecture
+      sha256: "8ab19edbde8d554a4892eb8966313d633185d7f0a0514e5dd555c9338102ced1"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.1"
   flutter_lints:
     dependency: "direct dev"
     description:
