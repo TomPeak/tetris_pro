@@ -10,13 +10,13 @@ import 'package:tetris/core/tetris_main.dart';
 import 'package:tetris/core/tetris.dart';
 import 'utility/direction.dart';
 import 'utility/config.dart';
+import 'package:tetris/utility/score.dart';
 import 'package:flame_audio/flame_audio.dart';
 import 'dart:ui';
 
 class MainGame extends FlameGame
     with KeyboardEvents, HasGameRef, TapCallbacks, DragCallbacks {
   final TetrisMain _tetris = TetrisMain();
-  Score points = Score();
   final List<RectangleComponent> _wallComponentList = [];
   final List<RectangleComponent> _rectComponentList = [];
   final List<RectangleComponent> _nextMinoComponentList = [];
@@ -74,8 +74,10 @@ class MainGame extends FlameGame
     add(rightButton);
     add(rotateButton);
     add(dropButton);
+    add(Score());
   }
 
+  get getScore => _tetris.getScore;
   Future<void> draw() async {
     for (var y = 0; y < _tetris.displayBuffer.length; y++) {
       final row = _tetris.displayBuffer[y];
@@ -101,7 +103,10 @@ class MainGame extends FlameGame
     for (var nextMino in _nextMinoComponentList) {
       add(nextMino);
     }
-
+    TextComponent scoreText = TextComponent(
+      text: "0",
+      position: Vector2(260.0, 320.0),
+    );
     add(getRenderText('NEXT', 260.0, 30.0));
     add(getRenderText('LEVEL', 260.0, 180.0));
     add(getRenderText('1', 260.0, 220.0));
@@ -127,13 +132,13 @@ class MainGame extends FlameGame
     for (var nextMino in _nextMinoComponentList) {
       add(nextMino);
     }
+
     if (_tetris.isGameOver) {
       final regular = TextPaint(
           style: TextStyle(
-          fontSize: 48.0,
-          color: Color(0xFF990000 ),
-      )
-      );
+        fontSize: 48.0,
+        color: Color(0xFF990000),
+      ));
       add(TextComponent(
           text: 'GAME OVER',
           position: Vector2(30, 280),

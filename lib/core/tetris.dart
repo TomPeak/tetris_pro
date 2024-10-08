@@ -6,32 +6,13 @@ import '../utility/config.dart';
 import '../utility/mino_enum.dart';
 import '../utility/deep_copy.dart';
 
-class Score {
-  // Creating a Field/Property
-  int value = 0;
-
-  // Creating the getter method
-  // to get input from Field/Property
-  int get getScore {
-    return value;
-  }
-
-  // Creating the setter method
-  // to set the input in Field/Property
-  set setScore(int point) {
-    value = point;
-  }
-}
-
 class Tetris {
   List<List<int>> field =
       List.generate(fieldHeight, (i) => List.generate(fieldWidth, (i) => 0));
   late Mino mino;
   late Mino nextMino;
   late Function changeMinoCallbackHandler;
-
-  Score points = Score();
-
+  int score = 10;
   Tetris(
       {minoType = 0, minoAngle = 0, minoX = 5, minoY = 0, bool random = true}) {
     initField();
@@ -104,8 +85,6 @@ class Tetris {
       for (int j = 0; j < minoWidth; j++) {
         if (minoShapes[minoType]![minoAngle]![i * minoWidth + j] > 0 &&
             field[minoY + i][getLimitFieldX(minoX, j)] > 0) {
-          debugPrint('is Hit true' + minoY.toString());
-
           return true;
         }
       }
@@ -171,7 +150,7 @@ class Tetris {
     }
   }
 
-  void lineFillCheck() {
+  lineFillCheck() {
     for (int i = 0; i < fieldHeight - 1; i++) {
       bool lineFill = true;
       for (int j = 1; j < fieldWidth - 1; j++) {
@@ -184,6 +163,8 @@ class Tetris {
         for (int j = i; 0 < j; j--) {
           field[j] = [...field[j - 1]];
         }
+        score += 1;
+        debugPrint(score.toString());
       }
     }
   }
