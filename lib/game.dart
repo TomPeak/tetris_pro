@@ -8,9 +8,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter/material.dart' show Colors;
 import 'package:tetris/core/tetris_main.dart';
 import 'package:tetris/core/tetris.dart';
+import 'utility/score.dart';
 import 'utility/direction.dart';
 import 'utility/config.dart';
-import 'package:tetris/utility/score.dart';
 import 'package:flame_audio/flame_audio.dart';
 import 'dart:ui';
 
@@ -23,8 +23,7 @@ class MainGame extends FlameGame
   bool drop = false;
   // @override
   // Color backgroundColor() => const Color.fromRGBO(89, 106, 108, 1.0);
-  TextBoxComponent scoreText =
-      TextBoxComponent(text: "0", position: Vector2(260.0, 320.0));
+ 
 
   @override
   Future<void> onLoad() async {
@@ -36,6 +35,7 @@ class MainGame extends FlameGame
     _tetris.setChangeMinoCallback(minoBottomHitCallback);
 
     var leftButton = SpriteButtonComponent(
+
         onPressed: () {
           _tetris.keyInput(Direction.left.name);
         },
@@ -74,10 +74,14 @@ class MainGame extends FlameGame
     add(rightButton);
     add(rotateButton);
     add(dropButton);
-    add(Score());
+    var score = Score()
+      ..position = Vector2(10, 10)
+      ..anchor = Anchor.topLeft;
+    // Update score manually after actions that change the score, or refactor score to be a ValueNotifier<int> for listening.
+    score.text = _tetris.getScore.toString();
+    add(score);
   }
 
-  get getScore => _tetris.getScore;
   Future<void> draw() async {
     for (var y = 0; y < _tetris.displayBuffer.length; y++) {
       final row = _tetris.displayBuffer[y];
@@ -103,16 +107,10 @@ class MainGame extends FlameGame
     for (var nextMino in _nextMinoComponentList) {
       add(nextMino);
     }
-    TextComponent scoreText = TextComponent(
-      text: "0",
-      position: Vector2(260.0, 320.0),
-    );
     add(getRenderText('NEXT', 260.0, 30.0));
     add(getRenderText('LEVEL', 260.0, 180.0));
     add(getRenderText('1', 260.0, 220.0));
     add(getRenderText('SCORE', 260.0, 280.0));
-
-    add(scoreText);
 
     // camera.followVector2(Vector2(pushGame.state.width * oneBlockSize / 2, pushGame.state.height * oneBlockSize / 2));
   }

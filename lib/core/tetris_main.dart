@@ -42,8 +42,8 @@ class TetrisMain {
     cycle();
   }
 
-  String get getScore {
-    return gameCore.score.toString();
+  int get getScore {
+    return gameCore.score;
   }
 
   void cycle() {
