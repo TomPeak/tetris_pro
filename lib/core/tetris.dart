@@ -176,9 +176,9 @@ void setScoreChangedCallback(void Function(int) callback) {
         }
         field[0] = List.filled(fieldWidth, 0); // Clear the top line
         score += 1;
-        if (onScoreChanged != null) {
+   
           onScoreChanged(score);
-        }
+        
         debugPrint(score.toString());
         i--; // <-- Check the same line again!
       }
