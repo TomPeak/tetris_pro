@@ -11,7 +11,7 @@ class TetrisMain {
   late Timer gameLoop;
   late Function renderCallbackHandler;
   late Function bottomHitCallbackHandler;
-
+  final Tetris tetris = Tetris();
   TetrisMain(
       {int minoType = 0,
       int minoAngle = 0,
@@ -41,11 +41,6 @@ class TetrisMain {
   void loop() {
     cycle();
   }
-
-  int get getScore {
-    return gameCore.score;
-  }
-
   void cycle() {
     renderCallbackHandler();
 

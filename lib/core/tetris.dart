@@ -13,6 +13,11 @@ class Tetris {
   late Mino nextMino;
   late Function changeMinoCallbackHandler;
   int score = 10;
+  late void Function(int newScore) onScoreChanged = (int _) {};
+
+void setScoreChangedCallback(void Function(int) callback) {
+  onScoreChanged = callback;
+}
   Tetris(
       {minoType = 0, minoAngle = 0, minoX = 5, minoY = 0, bool random = true}) {
     initField();
@@ -83,8 +88,11 @@ class Tetris {
   bool isHit(int minoX, int minoY, int minoType, int minoAngle) {
     for (int i = 0; i < minoHeight; i++) {
       for (int j = 0; j < minoWidth; j++) {
+        int y = minoY + i;
+        int x = getLimitFieldX(minoX, j);
+        if (y < 0 || y >= fieldHeight || x < 0 || x >= fieldWidth) continue;
         if (minoShapes[minoType]![minoAngle]![i * minoWidth + j] > 0 &&
-            field[minoY + i][getLimitFieldX(minoX, j)] > 0) {
+            field[y][x] > 0) {
           return true;
         }
       }
@@ -144,27 +152,35 @@ class Tetris {
   void fieldMergeMino() {
     for (int i = 0; i < minoHeight; i++) {
       for (int j = 0; j < minoWidth; j++) {
-        field[mino.y + i][getLimitFieldX(mino.x, j)] |=
-            minoShapes[mino.type]![mino.angle]![i * minoWidth + j];
+        int y = mino.y + i;
+        int x = getLimitFieldX(mino.x, j);
+        if (y < 0 || y >= fieldHeight || x < 0 || x >= fieldWidth) continue;
+        field[y][x] |= minoShapes[mino.type]![mino.angle]![i * minoWidth + j];
       }
     }
   }
 
-  lineFillCheck() {
+  void lineFillCheck() {
     for (int i = 0; i < fieldHeight - 1; i++) {
       bool lineFill = true;
       for (int j = 1; j < fieldWidth - 1; j++) {
         if (field[i][j] == 0) {
           lineFill = false;
+          break;
         }
       }
 
       if (lineFill) {
-        for (int j = i; 0 < j; j--) {
+        for (int j = i; j > 0; j--) {
           field[j] = [...field[j - 1]];
         }
+        field[0] = List.filled(fieldWidth, 0); // Clear the top line
         score += 1;
+        if (onScoreChanged != null) {
+          onScoreChanged(score);
+        }
         debugPrint(score.toString());
+        i--; // <-- Check the same line again!
       }
     }
   }

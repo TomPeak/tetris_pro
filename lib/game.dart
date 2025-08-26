@@ -78,8 +78,10 @@ class MainGame extends FlameGame
       ..position = Vector2(10, 10)
       ..anchor = Anchor.topLeft;
     // Update score manually after actions that change the score, or refactor score to be a ValueNotifier<int> for listening.
-    score.text = _tetris.getScore.toString();
     add(score);
+    _tetris.tetris.setScoreChangedCallback((newScore) {
+      score.addScore(newScore - score.value); // Only add the difference
+   });
   }
 
   Future<void> draw() async {
